@@ -49,6 +49,11 @@ class ScopedClient
       else
         requestModule = http
         agent = @options.httpAgent if @options.httpAgent
+        
+      rejectUnauthorized = if @options.rejectUnauthorized == undefined
+        true
+      else
+        @options.rejectUnauthorized
 
       requestOptions = {
         port:    port
@@ -57,6 +62,7 @@ class ScopedClient
         path:    @fullPath()
         headers: headers
         agent:   agent
+        rejectUnauthorized: rejectUnauthorized
       }
 
       # Extends the previous request options with all remaining options
