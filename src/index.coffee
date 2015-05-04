@@ -24,8 +24,9 @@ class ScopedClient
     try
       headers      = extend {}, @options.headers
       sendingData  = reqBody and reqBody.length > 0
-      headers.Host = @options.hostname
-      headers.Host += ":#{@options.port}" if @options.port
+      unless headers.Host
+        headers.Host = @options.hostname
+        headers.Host += ":#{@options.port}" if @options.port
 
       # If `callback` is `undefined` it means the caller isn't going to stream
       # the body of the request using `callback` and we can set the
